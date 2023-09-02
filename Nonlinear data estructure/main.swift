@@ -4,7 +4,7 @@ var statusMenu = true
 
 while statusMenu == true {
     print("\nESTRUCTURA DE DATOS NO LINEALES.\n")
-    print("Digite para ver el código de: \n1. Realizar CRUD en un diccionario o mapa. \n2. Agregar y mostrar nodos de una tabla hash de forma manual. \n3. Crear, actualizar y mostrar las propiedades de un objeto mediante estructuras. \n4. Realizar CRUD en un objeto a partir de un diccionario. \n\nDigite * para salir del programa.")
+    print("Digite para ver el código de: \n1. Realizar CRUD en un diccionario o mapa. \n2. Agregar y mostrar nodos de una tabla hash de forma manual. \n3. Crear, actualizar y mostrar las propiedades de un objeto mediante estructuras. \n4. Realizar CRUD en un objeto a partir de un diccionario. \n5. Realizar CRUD en una matriz. \n\nDigite 6 para salir del programa.")
     if let menu = Int(readLine()!) {
         switch menu {
             case 1:
@@ -235,7 +235,7 @@ while statusMenu == true {
             
             case 4:
                 //OBJECTS THROUGHT DICTIONARIES
-                /*
+                /* Example
                 var pepito: [String: Any] = [
                     "name": "Pepito",
                     "lastName": "Pérez",
@@ -303,6 +303,130 @@ while statusMenu == true {
                 break
             
             case 5:
+                //MATRIX URL: https://www.youtube.com/watch?v=OyNXw80YgXc&t=2s
+                /* Example
+                //Create a matrix by statement
+                var matrixStatement = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+                //Show all items
+                print("Los elementos dentro del vector son:")
+                for rows in matrixStatement {
+                    for itemColumn in rows {
+                        print(itemColumn, terminator: ", ")
+                    }
+                    print("")
+                }
+
+
+                //Create a matrix by indexing
+                var matrixIndexing:[[Int]] = []
+                var rowsSize = 3
+                var columnSize = 3
+
+                //Insert items
+                for row in 0..<rowsSize {
+                    matrixIndexing.append([])
+                        
+                    for _ in 0..<columnSize {
+                        //Insert a random number between 0 and 10
+                        matrixIndexing[row].append(Int.random(in: 0...10))
+                    }
+                }
+
+                //Show all items
+                print("\nLos elementos dentro del vector son:")
+                for rows in matrixIndexing {
+                    for itemColumn in rows {
+                        print(itemColumn, terminator: ", ")
+                    }
+                    print("")
+                }
+
+                //Update items
+                print("\nDigite el lugar donde está el dato a modificar:")
+                print("\nDigite la fila:")
+                if let row = Int(readLine()!) {
+                    print("\nDigite la columna:")
+                    if let column = Int(readLine()!) {
+                        print("\nDigite el número por el que quiere actualizar el dato:")
+                        if let number = Int(readLine()!) {
+                            matrixIndexing[row - 1][column - 1] = number
+                        } else {
+                            print("‼️Solo se pueden digitar números.‼️")
+                        }
+                    } else {
+                        print("‼️Solo se pueden digitar números.‼️")
+                    }
+                } else {
+                    print("‼️Solo se pueden digitar números.‼️")
+                }
+
+                //Delete items
+                print("\nDigite el lugar donde está el dato a eliminar:")
+                print("\nDigite la fila:")
+                if let row = Int(readLine()!) {
+                    print("\nDigite la columna:")
+                    if let column = Int(readLine()!) {
+                        matrixIndexing[row - 1].remove(at: column - 1)
+                    } else {
+                        print("‼️Solo se pueden digitar números.‼️")
+                    }
+                } else {
+                    print("‼️Solo se pueden digitar números.‼️")
+                }
+                */
+                var status = true
+                
+                while status == true {
+                    print("\nREALIZAR CRUD EN UNA MATRIZ.\n")
+                    print("Digite para ver el código de: \n1. Crear una matriz por declaración. \n2. Crear una matriz por indexación. \n3. Mostrar el contenido de una matriz. \n4. Actualizar un elemento. \n5. Eliminar un elemento.")
+                    if let menu = Int(readLine()!) {
+                        switch menu {
+                        case 1:
+                            print("\nCREAR UNA MATRIZ POR DECLARACIÓN.\n")
+                            print("1    //Crear una matriz por declaración. \n2    var matrixStatement = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]")
+                            status = false
+                            break
+                        
+                        case 2:
+                            print("\nCREAR UNA MATRIZ POR INDEXACIÓN.\n")
+                            print("1    //Crear una matriz por indexación. \n2    var matrixIndexing:[[Int]] = [] \n3    var rowsSize = 3 \n4    var columnSize = 3")
+                            status = false
+                            break
+                            
+                        case 3:
+                            print("\nMOSTRAR EL CONTENIDO DE UNA MATRIZ.\n")
+                            print("1    //Crear una matriz por declaración. \n2    var matrixStatement = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] \n3    \n4    print(\"Los elementos dentro del vector son:\") \n5    for rows in matrixStatement { \n6        for itemColumn in rows { \n7            print(itemColumn, terminator: \", \") \n8        } \n9        print(\"\") \n10   }")
+                            status = false
+                            break
+                            
+                        case 4:
+                            print("\nACTUALIZAR UN ELEMENTO DE UNA MATRIZ.\n")
+                            print("1    //Crear una matriz por declaración. \n2    var matrixStatement = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] \n3    \n4    //Actualizar un elemento.  \n5    print(\"\\nDigite el lugar donde está el dato a modificar:\") { \n6    print(\"\\nDigite la fila:\") \n7    if let row = Int(readLine()!) { \n8        print(\"\\nDigite la columna:\") \n9        if let column = Int(readLine()!) { \n10           print(\"\\nDigite el número por el que quiere actualizar el dato:\") \n11           if let number = Int(readLine()!) { \n12               matrixStatement[row - 1][column - 1] = number \n13           } else { \n14               print(\"‼️Solo se pueden digitar números.‼️\") \n15           } \n16       } else { \n17           print(\"‼️Solo se pueden digitar números.‼️\") \n18       } \n19   } else { \n20       print(\"‼️Solo se pueden digitar números.‼️\") \n21   }")
+                            status = false
+                            break
+                            
+                        case 5:
+                            print("\nELIMINAR UN ELEMENTO DE UNA MATRIZ.\n")
+                            print("1    //Crear una matriz por declaración. \n2    var matrixStatement = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] \n3    \n4    //Eliminar un elemento.  \n5    print(\"\\nDigite el lugar donde está el dato a eliminar:\") { \n6    print(\"\\nDigite la fila:\") \n7    if let row = Int(readLine()!) { \n8        print(\"\\nDigite la columna:\") \n9        if let column = Int(readLine()!) { \n10           matrixStatement[row - 1].remove(at: column - 1) \n11       } else { \n12           print(\"‼️Solo se pueden digitar números.‼️\") \n13       } \n14   } else { \n15       print(\"‼️Solo se pueden digitar números.‼️\") \n16   }")
+                            status = false
+                            break
+                            
+                        case 6:
+                            print("Adios 👋.")
+                            status = false
+                            break
+                            
+                        default:
+                            print("\n‼️La opción no se encuentra en el menu dado.‼️\n")
+                        }
+                    } else {
+                        print("\n‼️Solo se pueden digitar números.‼️\n")
+                    }
+                }
+                break
+            
+            case 6:
                 print("Adios 👋.")
                 statusMenu = false
                 break
