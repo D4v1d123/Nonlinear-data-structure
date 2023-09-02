@@ -412,11 +412,6 @@ while statusMenu == true {
                             status = false
                             break
                             
-                        case 6:
-                            print("Adios 👋.")
-                            status = false
-                            break
-                            
                         default:
                             print("\n‼️La opción no se encuentra en el menu dado.‼️\n")
                         }
