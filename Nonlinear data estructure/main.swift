@@ -4,7 +4,7 @@ var statusMenu = true
 
 while statusMenu == true {
     print("\nESTRUCTURA DE DATOS NO LINEALES.\n")
-    print("Digite para ver el código de: \n1. Realizar CRUD en un diccionario o mapa. \n2. Agregar y mostrar nodos de una tabla hash de forma manual. \n3. Crear, actualizar y mostrar las propiedades de un objeto mediante estructuras. \n4. Realizar CRUD en un objeto a partir de un diccionario. \n5. Realizar CRUD en una matriz. \n6. Realizar un CRUD en un árbol binario de búsqueda. \n\nDigite 7 para salir del programa.")
+    print("Digite para ver el código de: \n1. Realizar CRUD en un diccionario o mapa. \n2. Agregar y mostrar nodos de una tabla hash de forma manual. \n3. Crear, actualizar y mostrar las propiedades de un objeto mediante estructuras. \n4. Realizar CRUD en un objeto a partir de un diccionario. \n5. Realizar CRUD en una matriz. \n6. Realizar un CRUD en un árbol binario de búsqueda. \n7. Insertar y extraer un valor de un heap o montículo binomial. \n\nDigite 8 para salir del programa.")
     if let menu = Int(readLine()!) {
         switch menu {
             case 1:
@@ -715,6 +715,207 @@ while statusMenu == true {
                 break
             
             case 7:
+            // MIN AND MAX HEAPS URL: https://www.youtube.com/watch?v=B87cu3QM_LI&t=321s, https://www.youtube.com/watch?v=toXZnK6HMPY
+            /*Example
+                 struct Heap {
+                     private var maxHeap: [Int] = []
+                     private var minHeap: [Int] = []
+
+                     //MAX HEAP
+                     mutating func insertMaxHeap(_ value: Int) {
+                         maxHeap.append(value) //Add item or value to the end of array.
+                         var currentIndex = maxHeap.count - 1
+                         var parentIndex = (currentIndex - 1) / 2
+
+                         //Move the largest item to beginning of the array.
+                         while currentIndex > 0 && maxHeap[currentIndex] > maxHeap[parentIndex] {
+                             maxHeap.swapAt(currentIndex, parentIndex) //Exchange items.
+                             currentIndex = parentIndex
+                             parentIndex = (currentIndex - 1) / 2
+                         }
+                     }
+                     
+                     //Check if the root or first position has the largest value in the array.
+                     private mutating func maxHeapHeapify(_ index: Int, _ heapSize: Int) {
+                         let leftChild = (2 * index) + 1
+                         let rightChild = (2 * index) + 2
+                         var largest = index //Index of the item with highest value.
+
+                         if leftChild < heapSize && maxHeap[leftChild] > maxHeap[largest] {
+                             largest = leftChild //Save the highest value index.
+                         }
+
+                         if rightChild < heapSize && maxHeap[rightChild] > maxHeap[largest] {
+                             largest = rightChild //Save the highest value index.
+                         }
+
+                         //Check if there is a value greater than the previously logged value.
+                         if largest != index {
+                             maxHeap.swapAt(index, largest) //Exchange values, leaving the largest value in the first positions.
+                             maxHeapHeapify(largest, heapSize)
+                         }
+                     }
+
+                     
+                     mutating func buildMaxHeap() {
+                         let lenght = maxHeap.count
+                         for index in stride(from: (lenght / 2) - 1, through: 0, by: -1) {
+                             maxHeapHeapify(index, lenght)
+                         }
+                     }
+
+                     //Sort the array with max heap property.
+                     mutating func maxHeapSort() {
+                         buildMaxHeap()
+                         var heapSize = maxHeap.count
+
+                         //Reverse the array.
+                         for index in stride(from: maxHeap.count - 1, to: 0, by: -1) {
+                             maxHeap.swapAt(0, index) //Exchange values, leaving the largest value in the last position.
+                             heapSize -= 1
+                             maxHeapHeapify(0, heapSize)
+                         }
+                     }
+
+                     //Extract the largest value.
+                     mutating func extractMax() -> Int? {
+                         //Check if the array is empty.
+                         if maxHeap.count == 0 {
+                             return nil
+                         }
+
+                         return maxHeap.removeLast()
+                     }
+                     
+                     
+                     //MIN HEAP
+                     mutating func insertMinHeap(_ value: Int) {
+                         minHeap.append(value) //Add item or value to the end of array.
+                         var currentIndex = minHeap.count - 1
+                         var parentIndex = (currentIndex - 1) / 2
+                          
+                         //Move the smallest item to beginning of the array.
+                         while parentIndex > 0 && minHeap[currentIndex] < minHeap[parentIndex] {
+                             minHeap.swapAt(currentIndex, parentIndex) //Exchange items.
+                             currentIndex = parentIndex
+                             parentIndex = (currentIndex - 1) / 2
+                         }
+                     }
+                     
+                     //Check if the root or first position has the smallest value in the array.
+                     private mutating func minHeapHeapify(_ index: Int, _ heapSize: Int) {
+                         let leftChild = (2 * index) + 1
+                         let rightChild = (2 * index) + 2
+                         var smallest = index //Index of the item with smallest value.
+
+                         if leftChild < heapSize && minHeap[leftChild] < minHeap[smallest] {
+                             smallest = leftChild //Save the smallest value index.
+                         }
+
+                         if rightChild < heapSize && minHeap[rightChild] < minHeap[smallest] {
+                             smallest = rightChild //Save the smallest value index.
+                         }
+
+                         //Check if there is a value smaller than the previously logged value.
+                         if smallest != index {
+                             minHeap.swapAt(index, smallest) //Exchange values, leaving the smallest value in the first positions.
+                             minHeapHeapify(smallest, heapSize)
+                         }
+                     }
+
+                     
+                     mutating func buildMinHeap() {
+                         let lenght = minHeap.count
+                         for index in stride(from: (lenght / 2) - 1, through: 0, by: -1) {
+                             minHeapHeapify(index, lenght)
+                         }
+                     }
+
+                     //Sort the array with min heap property.
+                     mutating func minHeapSort() {
+                         buildMinHeap()
+                         var heapSize = minHeap.count
+
+                         //Reverse the array.
+                         for index in stride(from: minHeap.count - 1, to: 0, by: -1) {
+                             minHeap.swapAt(0, index) //Exchange values, leaving the smallest value in the last position.
+                             heapSize -= 1
+                             minHeapHeapify(0, heapSize)
+                         }
+                     }
+
+                     //Extract the smallest value.
+                     mutating func extractMin() -> Int? {
+                         //Check if the array is empty.
+                         if minHeap.count == 0 {
+                             return nil
+                         }
+
+                         return minHeap.removeLast()
+                     }
+                 }
+
+                 // Example usage in max heap property.
+                 var maxHeap = Heap()
+                 maxHeap.insertMaxHeap(10)
+                 maxHeap.insertMaxHeap(20)
+                 maxHeap.insertMaxHeap(15)
+                 maxHeap.insertMaxHeap(40)
+                 maxHeap.insertMaxHeap(50)
+                 print("Max Heap: \(maxHeap)")
+                 maxHeap.buildMaxHeap()
+                 print("Built Max Heap: \(maxHeap)")
+                 maxHeap.maxHeapSort()
+                 print("Heap Sort: \(maxHeap)")
+                 print("Extracted Max: \(maxHeap.extractMax() ?? -1)") // Extract maximum.
+                 print("Heap after extraction: \(maxHeap)")
+
+                 print("\n\n")
+
+                 // Example usage in min heap property.
+                 var minHeap = Heap()
+                 minHeap.insertMinHeap(10)
+                 minHeap.insertMinHeap(20)
+                 minHeap.insertMinHeap(15)
+                 minHeap.insertMinHeap(40)
+                 minHeap.insertMinHeap(50)
+                 print("Min Heap: \(minHeap)")
+                 minHeap.buildMinHeap()
+                 print("Built Min Heap: \(minHeap)")
+                 minHeap.minHeapSort()
+                 print("Heap Sort: \(minHeap)")
+                 print("Extracted Min: \(minHeap.extractMin() ?? -1)") // Extract minimum.
+                 print("Heap after extraction: \(minHeap)")
+             */
+            var statusMenu = true
+            
+            while statusMenu == true {
+                print("\nINSERTAR Y EXTRAER UN VALOR DE UN HEAP O MONTÍCULO BINOMIAL.\n")
+                print("Digite para ver el código de: \n1. Insertar y extraer valores de un Min Heap. \n2. Insertar y extraer valores de un Max Heap.")
+                if let menu = Int(readLine()!) {
+                    switch menu {
+                    case 1:
+                        print("INSERTAR Y EXTRAER VALORES DE UN MIN HEAP.")
+                        print("\n1    struct Heap { \n2        private var minHeap: [Int] = [] //Declarar el heap con la propiedad min heap. \n3    \n4        mutating func insertMinHeap(_ value: Int) { \n5            minHeap.append(value) //Agregar un elemento o valor al final del arreglo. \n6            var currentIndex = minHeap.count - 1 \n7            var parentIndex = (currentIndex - 1) / 2 \n8    \n9            //Mover el elemento más pequeño al inicio del arreglo. \n10           while parentIndex > 0 && minHeap[currentIndex] < minHeap[parentIndex] { \n11           minHeap.swapAt(currentIndex, parentIndex) //Intercambiar elementos. \n12           currentIndex = parentIndex \n13           parentIndex = (currentIndex - 1) / 2 \n14           } \n15       } \n16   \n17       //Verificar si la raíz o primera posición tiene el valor más pequeño en el arreglo. \n18       private mutating func minHeapHeapify(_ index: Int, _ heapSize: Int) { \n19           let leftChild = (2 * index) + 1 \n20           let rightChild = (2 * index) + 2 \n21           var smallest = index //Índice del elementos con el valor más pequeño. \n22   \n23           if leftChild < heapSize && minHeap[leftChild] < minHeap[smallest] { \n24               smallest = leftChild //Guardar el índice del valor más pequeño. \n25           } \n26   \n27           if rightChild < heapSize && minHeap[rightChild] < minHeap[smallest] { \n28               smallest = rightChild //Guardar el índice del valor más pequeño. \n29           } \n30   \n31           //Verificar si hay un valor más pequeño que el valor previamente registrado. \n32           if smallest != index { \n33               minHeap.swapAt(index, smallest) //Intercambiar valores, dejando el valor más pequeño en la primera posición. \n34               minHeapHeapify(smallest, heapSize) \n35           } \n36       } \n37   \n38       mutating func buildMinHeap() { \n39           let lenght = minHeap.count \n40           for index in stride(from: (lenght / 2) - 1, through: 0, by: -1) { \n41               minHeapHeapify(index, lenght) \n42           } \n43       } \n44   \n45       //Ordenar el arreglo con la propiedad de min heap. \n46       mutating func minHeapSort() { \n47           buildMinHeap() \n48           var heapSize = minHeap.count \n49   \n50           //Invertir el arreglo. \n51           for index in stride(from: minHeap.count - 1, to: 0, by: -1) { \n52               minHeap.swapAt(0, index) //Intercambiar valores, dejando el valor más pequeño en la última posición. \n53               heapSize -= 1 \n54               minHeapHeapify(0, heapSize) \n55           } \n56       } \n57   \n58       //Extraer el valor más pequeño. \n59       mutating func extractMin() -> Int? { \n60           //Verificar si el arreglo está vacío. \n61           if minHeap.count == 0 { \n62               return nil \n63           } \n64   \n65           return minHeap.removeLast() \n66       } \n67   } \n68   \n69   //Crear el objeto min Heap. \n70   var minHeap = Heap() \n71   \n72   //Insertar datos en el arreglo dentro del min heap. \n73   minHeap.insertMinHeap(10) \n74   minHeap.insertMinHeap(20) \n75   minHeap.insertMinHeap(15) \n76   minHeap.insertMinHeap(15) \n77   minHeap.insertMinHeap(40) \n78   minHeap.insertMinHeap(50) \n79 \n80   //Construir el min heap con el arreglo creado en las inserciones. \n81   minHeap.buildMinHeap() \n82   \n83   //Ordenar el heap para que cumpla la propiedad de min heap. \n84   minHeap.minHeapSort() \n85   \n86   //Imprimir el heap con la propiedad de min heap. \n87   print(\"Heap ordenado: \\(minHeap)\") \n88   \n89   //Extraer y mostrar el valor mínimo del heap, en el caso de que esté vacío imprimirá '-1'. \n90   print(\"Valor mínimo extraído: \\(minHeap.extractMin() ?? -1)\") \n91   \n92   //Imprimir el heap con la propiedad de min heap. \n93   print(\"Heap despues de la extración: \\(minHeap)\")")
+                            statusMenu = false
+                        break
+                        
+                    case 2:
+                        print("INSERTAR Y EXTRAER VALORES DE UN MAX HEAP.")
+                        print("\n1    struct Heap { \n2        private var maxHeap: [Int] = [] //Declarar el heap con la propiedad max heap. \n3    \n4        mutating func insertMaxHeap(_ value: Int) { \n5            maxHeap.append(value) //Agregar un elemento o valor al final del arreglo. \n6            var currentIndex = maxHeap.count - 1 \n7            var parentIndex = (currentIndex - 1) / 2 \n8    \n9            //Mover el elemento más grande al inicio del arreglo. \n10           while currentIndex > 0 && maxHeap[currentIndex] > maxHeap[parentIndex] { \n11           maxHeap.swapAt(currentIndex, parentIndex) //Intercambiar elementos. \n12           currentIndex = parentIndex \n13           parentIndex = (currentIndex - 1) / 2 \n14           } \n15       } \n16   \n17       //Verificar si la raíz o primera posición tiene el valor más grande en el arreglo. \n18       private mutating func maxHeapHeapify(_ index: Int, _ heapSize: Int) { \n19           let leftChild = (2 * index) + 1 \n20           let rightChild = (2 * index) + 2 \n21           var largest = index //Índice del elemento con el valor más grande. \n22   \n23           if leftChild < heapSize && maxHeap[leftChild] > maxHeap[largest] { \n24               largest = leftChild //Guardar el índice del valor más grande. \n25           } \n26   \n27           if rightChild < heapSize && maxHeap[rightChild] > maxHeap[largest] { \n28               largest = rightChild //Guardar el índice del valor más grande. \n29           } \n30   \n31           //Verificar si hay un valor mayor que el valor previamente registrado. \n32           if largest != index { \n33               maxHeap.swapAt(index, largest) //Intercambiar valores, dejar el valor más grande en la primera posición. \n34               maxHeapHeapify(largest, heapSize) \n35           } \n36       } \n37   \n38       mutating func buildMaxHeap() { \n39           let lenght = maxHeap.count \n40           for index in stride(from: (lenght / 2) - 1, through: 0, by: -1) { \n41               maxHeapHeapify(index, lenght) \n42           } \n43       } \n44   \n45       //Ordenar el arreglo con la propiedad max heap. \n46       mutating func maxHeapSort() { \n47           buildMaxHeap() \n48           var heapSize = maxHeap.count \n49   \n50           //Invertir el arreglo. \n51           for index in stride(from: maxHeap.count - 1, to: 0, by: -1) { \n52               maxHeap.swapAt(0, index) //Intercambiar valores, dejar el valor más grande en la última posición. \n53               heapSize -= 1 \n54               maxHeapHeapify(0, heapSize) \n55           } \n56       } \n57   \n58       //Extraer el valor más grande. \n59       mutating func extractMax() -> Int? { \n60           //Verificar si el arreglo está vacío. \n61           if maxHeap.count == 0 { \n62               return nil \n63           } \n64   \n65           return maxHeap.removeLast() \n66       } \n67   } \n68   \n69   //Crear el objeto max Heap. \n70   var maxHeap = Heap() \n71   \n72   //Insertar datos en el arreglo dentro del max heap. \n73   maxHeap.insertMaxHeap(10) \n74   maxHeap.insertMaxHeap(20) \n75   maxHeap.insertMaxHeap(15) \n76   maxHeap.insertMaxHeap(15) \n77   maxHeap.insertMaxHeap(40) \n78   maxHeap.insertMaxHeap(50) \n79 \n80   //Construir el max heap con el arreglo creado en las inserciones. \n81   maxHeap.buildMaxHeap() \n82   \n83   //Ordenar el heap para que cumpla la propiedad de max heap. \n84   maxHeap.maxHeapSort() \n85   \n86   //Imprimir el heap con la propiedad de max heap. \n87   print(\"Heap ordenado: \\(maxHeap)\") \n88\n89   //Extraer y mostrar el valor máximo del heap, en el caso de que esté vacío imprimirá '-1'. \n90   print(\"Valor máximo extraído: \\(maxHeap.extractMax() ?? -1)\") \n91   \n92   //Imprimir el heap con la propiedad de max heap. \n93   print(\"Heap despues de la extración: \\(maxHeap)\")")
+                            statusMenu = false
+                        break
+                        
+                    default:
+                        print("\n‼️La opción no se encuentra en el menu dado.‼️\n")
+                    }
+                } else {
+                    print("\n‼️Solo se pueden digitar números.‼️\n")
+                }
+            }
+                break
+            
+            case 8:
                 print("Adios 👋.")
                 statusMenu = false
                 break
